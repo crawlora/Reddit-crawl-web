@@ -1,0 +1,98 @@
+---
+import UserSlider from '../UserSlider.astro';
+
+import userImage1 from '../../pages/assets/user/img-1.jpg';
+import userImage2 from '../../pages/assets/user/img-2.jpg';
+import userImage3 from '../../pages/assets/user/img-3.jpg';
+import userImage4 from '../../pages/assets/user/img-4.jpg';
+
+const users = [
+  { imgSrc: userImage1.src, alt: 'User 1' },
+  { imgSrc: userImage2.src, alt: 'User 2' },
+  { imgSrc: userImage3.src, alt: 'User 3' },
+  { imgSrc: userImage4.src, alt: 'User 4' },
+];
+---
+
+<section class="py-16 bg-[#f3f4f6]">
+  <div class="container mx-auto px-4">
+    <h2
+      class="text-3xl sm:text-[48px] font-bold mb-10 text-center sm:leading-[60px] leading-[40px]"
+    >
+      Pricing? If you get <br />accepted, it's free.
+    </h2>
+    <div class="flex justify-center">
+      <div class="max-w-[400px] flex-1 z-10">
+        <div class="card p-8 rounded-[30px] shadow-md bg-gradiant relative">
+          <div class="flex justify-between items-center">
+            <p class="text-2xl font-bold text-gray-500">
+              <span class="line-through text-black">$199</span> / mo
+            </p>
+            <p class="text-2xl font-bold">free</p>
+          </div>
+          <hr class="my-10" />
+          <ul class="list-inside px-[1rem] text-[#576a8a] text-[20px]">
+            <li class="mb-4"><strong>1,000 sending</strong> / day</li>
+            <li class="mb-4"><strong>1 domain </strong>- no sending limit</li>
+            <li class="mb-4"><strong>Unlimited</strong> inboxes</li>
+            <li class="mb-4"><strong>Unlimited</strong> active contacts</li>
+            <li class="mb-4"><strong>Done-For-You </strong> inbox setup</li>
+            <li class="mb-4"><strong>Privately hosted </strong> (just you)</li>
+            <li class="mb-4"><strong>Personal </strong>account manager</li>
+          </ul>
+          <div class="flex items-center mt-6">
+            <button
+              class="bg-[#00173c] mr-4 hover:bg-[#ffd500] ease-in duration-300 text-white hover:text-black text-[16px] font-semi-bold py-2 px-4 rounded-[12px]"
+            >
+              Apply Today
+            </button>
+            <UserSlider users={users} />
+          </div>
+          <div class="flex items-center space-x-2 text-gray-700 mt-6">
+            <span class="text-lg font-semibold"
+              >8% <strong>Accepted</strong></span
+            >
+            <span class="text-grey-300 font-bold">✓</span>
+            <a href="#" class="no-underline text-inherit">
+              TrustPeople verified
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .bg-gradiant {
+    background: radial-gradient(
+      214% 70% at 123.70000000000002% -8.200000000000001%,
+      #fff8d6 0%,
+      rgb(255, 247, 222) 50%,
+      rgb(255, 255, 255) 100%
+    );
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -24%;
+    background-color: white;
+    transform: rotatez(-5deg);
+    width: 329px;
+    height: 530px;
+    z-index: -1;
+    border-radius: 30px;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: -24%;
+    background-color: white;
+    transform: rotatez(5deg);
+    width: 329px;
+    height: 530px;
+    z-index: -1;
+    border-radius: 30px;
+  }
+</style>

@@ -6,6 +6,7 @@ const {
   containerWidth = '114px', // Default container width
   imageSize = '48px', // Default size for images
   overlapAmount = '12px', // Amount of overlap between images
+  animationDuration = '8s', // Default animation speed
 } = Astro.props;
 ---
 
@@ -19,7 +20,7 @@ const {
         .concat(users)
         .map((user: { imgSrc: string; alt: string }, index: number) => (
           <div class="slide-item">
-            <Image
+            <img
               src={user.imgSrc as any}
               alt={user.alt}
               class="profile-img"

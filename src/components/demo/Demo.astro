@@ -13,12 +13,11 @@ const totalAccepted = 18;
 const totalApplications = 220;
 
 const users = [
-  { imgSrc: userImage1, alt: 'User 1' },
-  { imgSrc: userImage2, alt: 'User 2' },
-  { imgSrc: userImage3, alt: 'User 3' },
-  { imgSrc: userImage4, alt: 'User 4' },
+  { imgSrc: userImage1.src, alt: 'User 1' },
+  { imgSrc: userImage2.src, alt: 'User 2' },
+  { imgSrc: userImage3.src, alt: 'User 3' },
+  { imgSrc: userImage4.src, alt: 'User 4' },
 ];
-console.log('users:', users);
 ---
 
 <section class="mb-20 py-[120px] sm:px-10 px-4">
@@ -47,7 +46,7 @@ console.log('users:', users);
     </div>
     <div class="flex mt-8">
       <UserSlider users={users} />
-      <div class="mr-4">
+      <div class="ml-4">
         <p style="margin: 0; font-size: 16px;">
           <strong>{totalAccepted}/{totalApplications} accepted</strong>
         </p>
@@ -56,16 +55,8 @@ console.log('users:', users);
         </p>
       </div>
       <button
-        style=" 
-        background-color: #001f4d;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 8px 16px;
-        font-size: 14px;
-        cursor: pointer;
-      "
         type="button"
+        class="ml-4 bg-[#001f4d] h-[40px] cursor-pointer ease-in duration-300 rounded-[12px] text-white flex justify-center items-center hover:bg-[#ffd500] hover:text-black"
       >
         Apply
       </button>
