@@ -1,47 +1,78 @@
 ---
-type LayoutProps = {
+import Footer from '../components/footer/Footer.astro';
+import Navbar from '../components/header/Navbar.astro';
+
+interface Props {
   title: string;
   description: string;
-  children: any;
-};
+}
 
-const { title, description, children } = Astro.props as LayoutProps;
+const { title } = Astro.props;
 ---
 
-<html lang='en'>
+<!doctype html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Reddit Crawler" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <meta name='description' content={description} />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <link rel='stylesheet' href='/styles/global.css' />
   </head>
-  <body class='bg-secondary font-sans'>
-    <header class='bg-white shadow-md'>
-      <div
-        class='container mx-auto px-4 py-4 flex justify-between items-center'
-      >
-        <a href='/' class='text-2xl font-bold text-primary'>RedditCrawl</a>
-        <nav class='flex gap-4'>
-          <a href='#features' class='text-sm text-gray-700 hover:text-primary'
-            >Features</a
-          >
-          <a href='#pricing' class='text-sm text-gray-700 hover:text-primary'
-            >Pricing</a
-          >
-          <a href='#contact' class='text-sm text-gray-700 hover:text-primary'
-            >Contact</a
-          >
-        </nav>
-        <a href='/login' class='px-4 py-2 bg-primary text-white rounded-md'
-          >Login</a
-        >
-      </div>
-    </header>
-    <main>{children}</main>
-    <footer class='bg-gray-800 text-white py-6 mt-12'>
-      <div class='container mx-auto text-center'>
-        <p>&copy; 2024 RedditCrawl. All rights reserved.</p>
-      </div>
-    </footer>
+  <body class="bg-secondary font-sans">
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
+<style is:global>
+  :root {
+    /* Default (Light Mode) */
+    --background: #ffffff;
+    --text-color: #13151a;
+    --navbar-bg: #f8f9fa;
+    --footer-bg: #f1f3f5;
+    --button-bg: #1369ce;
+    --button-text: #ffffff;
+  }
+
+  [data-theme='dark'] {
+    /* Dark Mode */
+    --background: #13151a;
+    --text-color: #ffffff;
+    --navbar-bg: #1f2227;
+    --footer-bg: #1f2227;
+    --button-bg: #3c64ff;
+    --button-text: #ffffff;
+  }
+
+  html {
+    font-family: system-ui, sans-serif;
+    background: var(--background);
+    color: var(--text-color);
+    transition:
+      background-color 0.3s,
+      color 0.3s;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  header,
+  footer {
+    background-color: var(--navbar-bg);
+  }
+
+  button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>

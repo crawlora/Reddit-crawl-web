@@ -1,0 +1,91 @@
+<header
+  id="main-header"
+  class="bg-transparent fixed w-full top-0 z-10 transition duration-300"
+>
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="/" class="text-2xl font-bold text-primary">RedditCrawl</a>
+
+    <!-- Desktop Navigation (Hidden on mobile) -->
+    <nav class="hidden md:flex gap-4">
+      <a href="#features" class="text-sm hover:text-primary">Demo</a>
+      <a href="#features" class="text-sm hover:text-primary">Features</a>
+      <a href="#pricing" class="text-sm hover:text-primary">Pricing</a>
+      <a href="#contact" class="text-sm hover:text-primary">FAQs</a>
+    </nav>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center gap-4">
+      <!-- Theme Toggle Icon -->
+      <button
+        id="theme-toggle"
+        class="text-2xl hidden"
+        aria-label="Toggle Theme"
+      >
+        dark <!-- Moon icon for dark mode -->
+      </button>
+
+      <!-- Login Button (Desktop only) -->
+      <a
+        href="/apply"
+        class="hidden md:block px-4 py-2 bg-primary text-grey-700 rounded-md border border-grey-700"
+        >Apply</a
+      >
+    </div>
+
+    <button class="md:hidden text-2xl" id="hamburger-icon"> &#9776; </button>
+  </div>
+
+  <!-- Mobile Navigation (Initially hidden) -->
+  <div class="md:hidden hidden" id="mobile-nav">
+    <nav class="flex flex-col items-center gap-4 py-4 bg-white shadow-md">
+      <a href="#features" class="text-sm hover:text-primary">Demo</a>
+      <a href="#features" class="text-sm hover:text-primary">Features</a>
+      <a href="#pricing" class="text-sm hover:text-primary">Pricing</a>
+      <a href="#contact" class="text-sm hover:text-primary">FAQs</a>
+      <!-- Login Button (Mobile version) -->
+      <a href="/apply" class="text-sm hover:text-primary">Apply</a>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  // Theme toggle logic
+  const themeToggleButton = document.getElementById('theme-toggle');
+  const rootElement = document.documentElement;
+
+  // Set the initial theme based on saved preference or system preference
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  rootElement.setAttribute('data-theme', savedTheme);
+
+  themeToggleButton.textContent = savedTheme === 'dark' ? 'light' : 'dark'; // Sun for light mode, moon for dark mode
+
+  themeToggleButton.addEventListener('click', () => {
+    const currentTheme = rootElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    rootElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+
+    themeToggleButton.textContent = newTheme === 'dark' ? 'light' : 'dark'; // Update icon
+  });
+
+  // Hamburger menu toggle
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  hamburgerIcon.addEventListener('click', () => {
+    mobileNav.classList.toggle('hidden');
+  });
+
+  // JavaScript to handle scroll effects
+  const header = document.getElementById('main-header');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+      header.classList.add('bg-white', 'shadow-md');
+    } else {
+      header.classList.remove('bg-white', 'shadow-md');
+    }
+  });
+</script>
