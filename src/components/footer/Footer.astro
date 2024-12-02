@@ -2,14 +2,43 @@
 
 ---
 
-<footer class="py-6 shadow-top">
-  <div class="container mx-auto text-center">
-    <p>&copy; 2024 RedditCrawl. All rights reserved.</p>
+<footer class='bg-white py-8 border-t border-gray-200 mt-20'>
+  <div class='container mx-auto px-4 text-center'>
+    <div class='flex justify-between'>
+      <div>
+        <h1 class='text-2xl font-bold text-gray-900'>sending.ac</h1>
+        <p class='mt-2 text-gray-600 text-sm'>
+          Flipping cold email setup up-side down for the better & saving our
+          users money along the way.
+        </p>
+      </div>
+      <div class='mt-6'>
+        <div class='flex justify-center items-center'>
+          <input
+            type='email'
+            placeholder='your@email.com'
+            class='px-4 py-2 w-64 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 text-sm'
+          />
+          <button
+            class='px-4 py-2 bg-blue-800 text-white text-sm rounded-r-md focus:outline-none'
+          >
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class='flex justify-around mt-20 text-sm text-gray-600'>
+      <div>
+        <a href='/apply' class='hover:text-gray-900'>Apply now</a>
+      </div>
+      <div class='text-gray-500' text-sm'>
+        © 2024 sending.ac. All rights reserved.
+      </div>
+      <div>
+        <a href='/privacy-policy' class='hover:text-gray-900'>Privacy Policy</a>
+        <a href='/terms' class='hover:text-gray-900'>Terms</a>
+      </div>
+    </div>
   </div>
 </footer>
-
-<style is:global>
-  .shadow-top {
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1); /* Adjust the values as needed */
-  }
-</style>

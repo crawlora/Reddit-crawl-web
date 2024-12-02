@@ -1,0 +1,124 @@
+---
+const featureData = [
+  {
+    id: 1,
+    title: "Send thousands of emails per day from 1 domain",
+    description:
+      "The days of buying 100+ domains with 2-3 inboxes each, are over. With sending.ac you get the same deliverability from just 1 domain.",
+    image: "../../../src/images/f1.avif",
+  },
+  {
+    id: 2,
+    title: "Feature 2 Title",
+    description: "Description for feature 2.",
+    image: "../../../src/images/f2.avif",
+  },
+  {
+    id: 3,
+    title: "Feature 3 Title",
+    description: "Description for feature 3.",
+    image: "../../../src/images/f3.avif",
+  },
+  {
+    id: 4,
+    title: "Feature 4 Title",
+    description: "Description for feature 4.",
+    image: "../../../src/images/f4.avif",
+  },
+];
+---
+
+<section
+  id='feature-section'
+  class='relative flex flex-col lg:flex-row items-center py-16 bg-secondary'
+>
+  <!-- Left: Images -->
+  <div class='w-full lg:w-1/2 grid grid-cols-2 gap-4 relative'>
+    {
+      featureData.map((feature, index) => (
+        <div
+          class='relative w-full h-[200px] sm:h-[250px] lg:h-[300px] transition-all duration-300 feature-image'
+          data-index={index}
+        >
+          <img
+            src={feature.image}
+            alt={`Feature ${index + 1}`}
+            class='object-cover w-full h-full rounded-lg blur-sm opacity-50 transition-all duration-300'
+          />
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Right: Content -->
+  <div class='w-full lg:w-1/2 mt-8 lg:mt-0 pl-8'>
+    {
+      featureData.map((feature, index) => (
+        <div
+          class='feature-content absolute lg:relative opacity-0 transition-opacity duration-300'
+          data-index={index}
+        >
+          <h2 class='text-2xl lg:text-4xl font-bold text-primary'>
+            {feature.title}
+          </h2>
+          <p class='mt-4 text-lg text-gray-600'>{feature.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const section = document.getElementById("feature-section");
+
+    if (!section) {
+      console.error("Feature section not found.");
+      return; // Stop execution if the section is not found
+    }
+
+    const images =
+      section.querySelectorAll<HTMLImageElement>(".feature-image img");
+    const contents = section.querySelectorAll<HTMLElement>(".feature-content");
+
+    const handleScroll = () => {
+      const sectionTop = section.getBoundingClientRect().top;
+      const sectionHeight = section.offsetHeight;
+      const windowHeight = window.innerHeight;
+
+      const relativeScroll = Math.max(
+        0,
+        Math.min(1, (windowHeight - sectionTop) / sectionHeight)
+      );
+
+      const activeIndex = Math.min(
+        Math.floor(relativeScroll * images.length),
+        images.length - 1
+      );
+
+      // Update images
+      images.forEach((img, index) => {
+        if (index === activeIndex) {
+          img.classList.remove("blur-sm", "opacity-50");
+          img.classList.add("blur-none", "opacity-100");
+        } else {
+          img.classList.remove("blur-none", "opacity-100");
+          img.classList.add("blur-sm", "opacity-50");
+        }
+      });
+
+      // Update content
+      contents.forEach((content, index) => {
+        if (index === activeIndex) {
+          content.classList.remove("opacity-0");
+          content.classList.add("opacity-100");
+        } else {
+          content.classList.remove("opacity-100");
+          content.classList.add("opacity-0");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Trigger on load
+  });
+</script>
