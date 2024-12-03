@@ -95,4 +95,11 @@ const users = [
     z-index: -1;
     border-radius: 30px;
   }
+
+  @media (max-width: 768px) {
+    .card::before,
+    .card::after {
+      content: none; /* Remove pseudo-elements */
+    }
+  }
 </style>

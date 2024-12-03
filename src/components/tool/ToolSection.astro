@@ -1,47 +1,116 @@
 ---
 // ScrollingLogos.astro
+
+import img1 from '../../../src/images/l1.avif';
+import img2 from '../../../src/images/l2.avif';
+import img3 from '../../../src/images/l1.avif';
+import img4 from '../../../src/images/l2.avif';
+
+const {
+  users = [
+    { imgSrc: img1.src, alt: 'User 1' },
+    { imgSrc: img2.src, alt: 'User 2' },
+    { imgSrc: img3.src, alt: 'User 3' },
+    { imgSrc: img4.src, alt: 'User 4' },
+    { imgSrc: img3.src, alt: 'User 3' },
+    { imgSrc: img1.src, alt: 'User 1' },
+    { imgSrc: img2.src, alt: 'User 2' },
+    { imgSrc: img3.src, alt: 'User 3' },
+  ],
+  containerWidth = 'calc(100% - 100px)', // Default container width
+  imageSize = '150px', // Default size for images
+  overlapAmount = '12px', // Amount of overlap between images
+  animationDuration = '15s', // Default animation speed
+} = Astro.props;
 ---
 
-<div class='bg-gray-[#E1E3E8] py-8'>
-  <div class='container mx-auto text-center space-y-4'>
-    <!-- Title Section -->
-    <h1 class='text-2xl md:text-3xl font-bold text-gray-800'>
-      1-click import into any sending tool
-    </h1>
-    <h6 class='text-gray-500'>
-      Literally compatible with any place where you can import inboxes.
-    </h6>
-
-    <!-- Scrolling Logos Section -->
-    <div class='relative overflow-hidden mt-6'>
-      <div
-        class='flex items-center animate-scroll gap-8 w-[200%]'
-        style='width: 200%;'
-      >
-        <!-- Logos -->
-        <div class='flex items-center gap-8'>
-          <img
-            src='../../../src/images/l1.avif'
-            alt='Smartlead.ai'
-            class='w-56 h-24 object-contain'
-          />
-          <img
-            src='../../../src/images/l2.avif'
-            alt='ReachInbox'
-            class='w-56 h-24 object-contain'
-          />
-          <img
-            src='../../../src/images/l1.avif'
-            alt='Instantly'
-            class='w-56 h-24 object-contain'
-          />
-          <img
-            src='../../../src/images/l2.avif'
-            alt='Smartlead.ai'
-            class='w-56 h-24 object-contain'
-          />
-        </div>
-      </div>
+<section class="tool py-[80px]">
+  <h2
+    class="text-center mb-8 font-bold sm:leading-[60px] leading-[40px] text-3xl sm:text-[40px]"
+  >
+    1-click import into any sending tool
+  </h2>
+  <p class="text-center text-[18px] text-[#576a8a]">
+    Literally compatible with any place where you can import mailboxes.
+  </p>
+  <div class="user-slides-wrap m-auto py-8" style={`width: ${containerWidth};`}>
+    <div
+      class="user-slides"
+      style={`width: calc(${users.length * 2 * (parseInt(imageSize) - parseInt(overlapAmount))}px);`}
+    >
+      {
+        users
+          .concat(users)
+          .map((user: { imgSrc: string; alt: string }, index: number) => (
+            <div class="slide-item">
+              <img
+                src={user.imgSrc as any}
+                alt={user.alt}
+                class="profile-img"
+              />
+            </div>
+          ))
+      }
     </div>
   </div>
-</div>
+</section>
+
+<style>
+  .tool {
+    background: linear-gradient(129deg, #ffffff 0%, rgba(0, 23, 61, 0.15) 100%);
+  }
+  .user-slides-wrap {
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 5%,
+      rgb(0, 0, 0) 12.5%,
+      rgb(0, 0, 0) 87.5%,
+      rgba(0, 0, 0, 0) 95%
+    );
+  }
+
+  .user-slides {
+    display: flex;
+    animation: scroll-left var(--duration, 20s) linear infinite;
+  }
+
+  .slide-item {
+    flex-shrink: 0;
+    width: calc(var(--image-size, 279px)); /* Match the image size */
+    height: var(--image-size, 74px); /* Ensure consistent height */
+    margin-left: calc(-1 * var(--overlap-amount, -30px)); /* Apply overlap */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure the images cover the container without distortion */
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+<script is:inline>
+  // Set dynamic styles for duration, image size, and overlap via CSS variables
+  document.documentElement.style.setProperty(
+    '--duration',
+    `${animationDuration}`
+  );
+  document.documentElement.style.setProperty('--image-size', `${imageSize}`);
+  document.documentElement.style.setProperty(
+    '--overlap-amount',
+    `${overlapAmount}`
+  );
+</script>

@@ -2,123 +2,227 @@
 const featureData = [
   {
     id: 1,
-    title: "Send thousands of emails per day from 1 domain",
+    title: 'Send thousands of emails per day from <strong> 1 domain.</strong>',
     description:
-      "The days of buying 100+ domains with 2-3 inboxes each, are over. With sending.ac you get the same deliverability from just 1 domain.",
-    image: "../../../src/images/f1.avif",
+      'The days of buying 100+ domains with 2-3 mailboxes each, are over. With sending.ac you get the same deliverability from just 1 domain.',
+    image: '../../../src/images/f1.avif',
   },
   {
     id: 2,
-    title: "Feature 2 Title",
-    description: "Description for feature 2.",
-    image: "../../../src/images/f2.avif",
+    title: '<strong>Unlimited mailboxes</strong> per domain - free',
+    description:
+      'Yup, you read that correctly. You can have unlimited mailboxes on 1 domain = cold email infrastructure just got like… really easy.',
+    image: '../../../src/images/f2.avif',
   },
   {
     id: 3,
-    title: "Feature 3 Title",
-    description: "Description for feature 3.",
-    image: "../../../src/images/f3.avif",
+    title: 'Yes, the mailbox setup is 100% <strong> done-for-you</strong>',
+    description:
+      "Traumatised from spending 15+ hours on SPF, DKIM, DMARC? Or having to pay VA's to do it? Congrats. You never have to worry about that again.",
+    image: '../../../src/images/f3.avif',
   },
   {
     id: 4,
-    title: "Feature 4 Title",
-    description: "Description for feature 4.",
-    image: "../../../src/images/f4.avif",
+    title: '<strong>No warmup needed </strong> = Start sending today',
+    description:
+      'Can you imagine? People really wait 2-3 weeks to warm up their mailboxes & pay for that unused time. When you use sending.ac you no longer have to do that.',
+    image: '../../../src/images/f4.avif',
   },
 ];
 ---
 
 <section
-  id='feature-section'
-  class='relative flex flex-col lg:flex-row items-center py-16 bg-secondary'
+  id="feature-section"
+  class="relative flex flex-col lg:flex-row items-start py-16 bg-secondary"
 >
-  <!-- Left: Images -->
-  <div class='w-full lg:w-1/2 grid grid-cols-2 gap-4 relative'>
-    {
-      featureData.map((feature, index) => (
-        <div
-          class='relative w-full h-[200px] sm:h-[250px] lg:h-[300px] transition-all duration-300 feature-image'
-          data-index={index}
-        >
+  <!-- Left: Sticky Image Section -->
+  <div
+    id="sticky-image-container"
+    class="w-full lg:w-1/2 sticky top-[60px] flex items-start justify-center bg-gray-50 h-screen"
+  >
+    <div class="grid grid-cols-2 gap-4 w-[90%] h-[70%]">
+      <!-- Image Gallery -->
+      {
+        featureData.map((feature, index) => (
           <img
             src={feature.image}
             alt={`Feature ${index + 1}`}
-            class='object-cover w-full h-full rounded-lg blur-sm opacity-50 transition-all duration-300'
+            class={`feature-image w-full h-full object-cover rounded-lg transition-all duration-300 ${
+              index === 0 ? 'active' : ''
+            }`}
+            data-index={index}
           />
-        </div>
-      ))
-    }
+        ))
+      }
+    </div>
   </div>
 
-  <!-- Right: Content -->
-  <div class='w-full lg:w-1/2 mt-8 lg:mt-0 pl-8'>
+  <!-- Right: Scrollable Content Section -->
+  <div class="w-full lg:w-1/2 flex flex-col gap-8 feature-content-container">
     {
       featureData.map((feature, index) => (
         <div
-          class='feature-content absolute lg:relative opacity-0 transition-opacity duration-300'
+          class="feature-content py-8 opacity-50 transition-opacity duration-300 min-h-[480px] px-8"
           data-index={index}
         >
-          <h2 class='text-2xl lg:text-4xl font-bold text-primary'>
-            {feature.title}
-          </h2>
-          <p class='mt-4 text-lg text-gray-600'>{feature.description}</p>
+          <h2
+            class=" sm:leading-[60px] sm:text-[40px] text-2xl leading-[40px]"
+            set:html={feature.title}
+          />
+          <p class="mt-4 text-lg text-gray-600">{feature.description}</p>
         </div>
       ))
     }
   </div>
 </section>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const section = document.getElementById("feature-section");
 
-    if (!section) {
-      console.error("Feature section not found.");
-      return; // Stop execution if the section is not found
+<style>
+  /* Basic styles for feature content and images */
+  .feature-content {
+    opacity: 0.5;
+  }
+
+  .feature-content.active {
+    opacity: 1;
+  }
+
+  .feature-image {
+    opacity: 0.5;
+    transform: scale(0.9);
+    filter: grayscale(100%);
+  }
+
+  .feature-image.active {
+    opacity: 1;
+    transform: scale(1);
+    filter: grayscale(0%);
+  }
+
+  .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 60px;
+  }
+
+  /* Hide scrollbars */
+  .feature-content-container::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .feature-content-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Media Query for screens 1024px or less */
+  @media (max-width: 1024px) {
+    #feature-section {
+      flex-direction: column;
+      gap: 4rem; /* Add space between sections */
     }
 
-    const images =
-      section.querySelectorAll<HTMLImageElement>(".feature-image img");
-    const contents = section.querySelectorAll<HTMLElement>(".feature-content");
+    /* Left: Image Section */
+    #sticky-image-container {
+      position: static; /* Remove sticky behavior */
+      width: 100%; /* Make the image container full width */
+      height: auto; /* Let it resize according to content */
+      display: block;
+      padding: 0 1rem; /* Add some padding for small screens */
+    }
 
+    .grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem; /* Adjust gap between images */
+    }
+
+    .feature-image {
+      width: 100%; /* Make images take full width */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    /* Right: Content Section */
+    .feature-content-container {
+      width: 100%;
+      padding: 0 1rem;
+    }
+
+    .feature-content {
+      padding: 0;
+      min-height: auto; /* Remove fixed min height */
+    }
+
+    .feature-content h2 {
+      font-size: 28px; /* Adjust font size */
+    }
+
+    .feature-content p {
+      font-size: 16px; /* Adjust paragraph font size */
+    }
+  }
+
+  /* Media Query for smaller screens, below 768px */
+  @media (max-width: 768px) {
+    /* Adjust layout and font sizes for even smaller screens */
+    .feature-content h2 {
+      font-size: 24px;
+    }
+
+    .feature-content p {
+      font-size: 14px;
+    }
+
+    /* Ensure images are stacked vertically */
+    #sticky-image-container {
+      padding: 0;
+    }
+
+    .grid {
+      grid-template-columns: 1fr; /* Single column for smaller screens */
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const featureSection = document.getElementById('feature-section');
+
+    if (!featureSection) {
+      console.error('Feature section not found.');
+      return;
+    }
+
+    const contentItems = featureSection.querySelectorAll('.feature-content');
+    const images = featureSection.querySelectorAll('.feature-image');
+    const contentContainer = featureSection.querySelector(
+      '.feature-content-container'
+    );
+
+    // Function to handle the scroll event
     const handleScroll = () => {
-      const sectionTop = section.getBoundingClientRect().top;
-      const sectionHeight = section.offsetHeight;
-      const windowHeight = window.innerHeight;
+      contentItems.forEach((content, index) => {
+        const contentTop = content.getBoundingClientRect().top;
+        const contentBottom = content.getBoundingClientRect().bottom;
 
-      const relativeScroll = Math.max(
-        0,
-        Math.min(1, (windowHeight - sectionTop) / sectionHeight)
-      );
+        // Check if content is in view (check if the content is within the viewport)
+        if (contentTop < window.innerHeight && contentBottom >= 0) {
+          // Activate content and corresponding image
+          contentItems.forEach((item) => item.classList.remove('active'));
+          images.forEach((img) => img.classList.remove('active'));
 
-      const activeIndex = Math.min(
-        Math.floor(relativeScroll * images.length),
-        images.length - 1
-      );
-
-      // Update images
-      images.forEach((img, index) => {
-        if (index === activeIndex) {
-          img.classList.remove("blur-sm", "opacity-50");
-          img.classList.add("blur-none", "opacity-100");
+          content.classList.add('active');
+          images[index].classList.add('active');
         } else {
-          img.classList.remove("blur-none", "opacity-100");
-          img.classList.add("blur-sm", "opacity-50");
-        }
-      });
-
-      // Update content
-      contents.forEach((content, index) => {
-        if (index === activeIndex) {
-          content.classList.remove("opacity-0");
-          content.classList.add("opacity-100");
-        } else {
-          content.classList.remove("opacity-100");
-          content.classList.add("opacity-0");
+          content.classList.remove('active');
+          images[index].classList.remove('active');
         }
       });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Trigger on load
+    // Listen to the scroll event
+    window.addEventListener('scroll', handleScroll);
+
+    // Initial trigger to ensure the correct content is active on page load
+    handleScroll();
   });
 </script>
