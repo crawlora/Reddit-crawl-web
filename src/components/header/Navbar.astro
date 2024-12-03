@@ -1,0 +1,138 @@
+<header id="main-header" class="scroll-header">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="/" class="text-2xl font-bold text-primary">RedditCrawl</a>
+
+    <!-- Desktop Navigation (Hidden on mobile) -->
+    <nav class="hidden md:flex gap-4">
+      <a
+        href="#features"
+        class="font-semibold text-[#00173ccc] hover:text-primary">Demo</a
+      >
+      <a
+        href="#features"
+        class="font-semibold text-[#00173ccc] hover:text-primary">Features</a
+      >
+      <a
+        href="#pricing"
+        class="font-semibold text-[#00173ccc] hover:text-primary">Pricing</a
+      >
+      <a
+        href="#contact"
+        class="font-semibold text-[#00173ccc] hover:text-primary">FAQs</a
+      >
+    </nav>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center gap-4">
+      <!-- Theme Toggle Icon -->
+      <button
+        id="theme-toggle"
+        class="text-2xl hidden"
+        aria-label="Toggle Theme"
+      >
+        dark <!-- Moon icon for dark mode -->
+      </button>
+
+      <!-- Login Button (Desktop only) -->
+      <a
+        href="/apply"
+        class="hidden md:block px-4 py-2 bg-[#00173c] text-white text-[18px] hover:text-black hover:bg-[rgb(255,229,99)] transition-all easy duration-500 font-semibold rounded-[12px] border border-grey-700"
+        >Apply</a
+      >
+    </div>
+
+    <button class="md:hidden text-2xl" id="hamburger-icon"> &#9776; </button>
+  </div>
+
+  <!-- Mobile Navigation (Initially hidden) -->
+  <div class="md:hidden hidden" id="mobile-nav">
+    <nav class="flex flex-col items-center gap-4 py-4 bg-white shadow-md">
+      <a
+        href="#features"
+        class="text-[#00173ccc] text-[18px] font-semibold hover:text-primary"
+        >Demo</a
+      >
+      <a
+        href="#features"
+        class="text-[#00173ccc] text-[18px] font-semibold hover:text-primary"
+        >Features</a
+      >
+      <a
+        href="#pricing"
+        class="text-[#00173ccc] text-[18px] font-semibold hover:text-primary"
+        >Pricing</a
+      >
+      <a
+        href="#contact"
+        class="text-[#00173ccc] text-[18px] font-semibold hover:text-primary"
+        >FAQs</a
+      >
+      <!-- Login Button (Mobile version) -->
+      <a
+        href="/apply"
+        class="text-sm bg-[#00173c] px-4 py-2 text-white text-[18px] hover:text-black hover:bg-[rgb(255,229,99)] transition-all easy duration-500 font-semibold rounded-[12px] border border-grey-700"
+        >Apply</a
+      >
+    </nav>
+  </div>
+</header>
+
+<style>
+  .scroll-header {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Default width for no scroll */
+    background-color: transparent;
+    z-index: 999;
+    transition: all 0.5s ease-out;
+  }
+  .scroll-header.shrink {
+    width: 720px; /* Shrink to 500px on scroll */
+    background-color: white;
+    border-radius: 26px;
+  }
+</style>
+
+<script is:inline>
+  // Theme toggle logic
+  const themeToggleButton = document.getElementById('theme-toggle');
+  const rootElement = document.documentElement;
+
+  // Set the initial theme based on saved preference or system preference
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  rootElement.setAttribute('data-theme', savedTheme);
+
+  themeToggleButton.textContent = savedTheme === 'dark' ? 'light' : 'dark'; // Sun for light mode, moon for dark mode
+
+  themeToggleButton.addEventListener('click', () => {
+    const currentTheme = rootElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    rootElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+
+    themeToggleButton.textContent = newTheme === 'dark' ? 'light' : 'dark'; // Update icon
+  });
+
+  // Hamburger menu toggle
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  hamburgerIcon.addEventListener('click', () => {
+    mobileNav.classList.toggle('hidden');
+  });
+
+  // JavaScript to handle scroll effects
+  const header = document.getElementById('main-header');
+
+  window.addEventListener('scroll', () => {
+    if (window.innerWidth >= 768 && window.scrollY > 10) {
+      header.classList.add('shrink', 'shadow-md');
+    } else {
+      header.classList.remove('shrink', 'shadow-md');
+    }
+  });
+</script>
