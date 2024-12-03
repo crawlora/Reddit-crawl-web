@@ -1,54 +1,100 @@
 ---
-let faqs = [
+const faqs = [
   {
     question: "But why is it free?",
-    answer: `We'll wait with the big money making until people talk about sending.ac just as much as they do about instantly.ai. 
-    Plus, we get to learn from you along the way - so that we can most definitely build the absolute best & fairest product. Period.`,
-    open: false,
+    answer:
+      "We'll wait with the big money making until people talk about sending.ac just as much as they do about instantly.ai. Plus, we get to learn from you along the way – so that we can most definitely build the absolute best & fairest product. Period.",
   },
   {
     question: "Will it stay free forever?",
-    answer: "Yes, for now, it will remain free for all users.",
-    open: false,
+    answer:
+      "We're committed to keeping the product free for as long as possible while we continue to improve and grow!",
   },
   {
-    question: "No seriously. Is this real? What's the catch?",
-    answer: "No catch. We just want to offer the best experience.",
-    open: false,
+    question: "How does this all work?",
+    answer:
+      "We gather insights from real users and create features based on your feedback – keeping the process entirely user-centric.",
+  },
+  {
+    question: "What makes you different?",
+    answer:
+      "Our focus is on providing a simple, easy-to-use platform with the most intuitive user experience possible.",
+  },
+  {
+    question: "How can I contact support?",
+    answer:
+      "You can reach out to our support team through the 'Contact Us' page or directly via email.",
+  },
+  {
+    question: "Can I upgrade my plan?",
+    answer: "Yes! You can upgrade at any time through your account settings.",
+  },
+  {
+    question: "What is the refund policy?",
+    answer:
+      "We offer a 30-day refund policy if you're not completely satisfied with our service.",
+  },
+  {
+    question: "Is my data secure?",
+    answer:
+      "We take your privacy and security seriously, implementing top-tier encryption and compliance standards.",
+  },
+  {
+    question: "Do you offer any discounts?",
+    answer:
+      "We occasionally offer discounts during special promotions. Be sure to check our announcements!",
   },
 ];
-
-function toggleFaq(index) {
-  faqs = faqs.map((faq, i) =>
-    i === index ? { ...faq, open: !faq.open } : { ...faq, open: false }
-  );
-}
 ---
-<section class="max-w-4xl mx-auto p-6 mt-20">
-  <div class="text-center">
-    <h1 class="text-3xl font-bold text-gray-800">
-      The 1 place with all the answers. You found it.
-    </h1>
-    <p class="text-gray-600 mt-2">
-      We have a whole bunch of answers to all kinds of questions.
-    </p>
-  </div>
 
-  <div class="mt-8 space-y-4">
-    {faqs.map((faq, index) => (
-      <div class={`bg-gray-100 rounded-lg p-4 shadow ${faq.open ? "border-l-4 border-blue-500" : ""}`} key={index}>
-        <!-- Question -->
-        <button
-          class="flex items-center justify-between w-full text-left"
-          onclick={() => toggleFaq(index)}
-        >
-          <h3 class={`text-lg font-medium ${faq.open ? "text-blue-600" : "text-gray-800"}`}>
-            {faq.open ? "✕" : "+"} {faq.question}
-          </h3>
-        </button>
-        <!-- Answer -->
-        {faq.open && <p class="mt-2 text-gray-600">{faq.answer}</p>}
-      </div>
-    ))}
+<section class='max-w-7xl mx-auto p-4 space-y-6'>
+  <h2 class='text-4xl font-bold text-center text-gray-800 mb-8'>
+    The 1 place with all the answers. You found it.
+  </h2>
+  <p class='text-lg text-center text-gray-600 mb-6'>
+    We have a whole bunch of answers to all kinda questions.
+  </p>
+
+  <div class='space-y-4'>
+    {
+      faqs.map((faq, index) => (
+        <div class='faq-item'>
+          <button
+            class='faq-question w-full text-gray-800 text-left text-lg font-medium p-4 bg-gray-100 rounded-lg focus:outline-none flex justify-between items-center'
+            id={`faq-${index}`}
+          >
+            <span>{faq.question}</span>
+            <span class='text-xl' id={`icon-${index}`}>
+              +
+            </span>
+          </button>
+          <div class='faq-answer hidden p-4 bg-gray-50 rounded-lg mt-2 overflow-hidden max-h-0 transition-all duration-300 ease-out'>
+            <p>{faq.answer}</p>
+          </div>
+        </div>
+      ))
+    }
   </div>
 </section>
+
+<script type='module'>
+  document.addEventListener("DOMContentLoaded", () => {
+    const faqButtons = document.querySelectorAll(".faq-question");
+
+    faqButtons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        const answer = document.querySelectorAll(".faq-answer")[index];
+        const icon = document.querySelector(`#icon-${index}`);
+
+        answer.classList.toggle("hidden");
+        if (answer.classList.contains("hidden")) {
+          answer.style.maxHeight = "0";
+          icon.textContent = "+";
+        } else {
+          answer.style.maxHeight = `${answer.scrollHeight}px`;
+          icon.textContent = "×";
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,77 @@
+---
+import UserSlider from "../UserSlider.astro";
+
+import userImage1 from "../../pages/assets/user/img-1.jpg";
+import userImage2 from "../../pages/assets/user/img-2.jpg";
+import userImage3 from "../../pages/assets/user/img-3.jpg";
+import userImage4 from "../../pages/assets/user/img-4.jpg";
+const totalAccepted = 18;
+const totalApplications = 220;
+
+const users = [
+  { imgSrc: userImage1.src, alt: "User 1" },
+  { imgSrc: userImage2.src, alt: "User 2" },
+  { imgSrc: userImage3.src, alt: "User 3" },
+  { imgSrc: userImage4.src, alt: "User 4" },
+];
+---
+
+<div
+  class='relative bg-gradient-to-r min-h-screen flex items-center justify-center py-16'
+>
+  <div
+    class='max-w-7xl mx-auto px-40 py-36 bg-gradient-to-tr from-[#FFFCEF] to-[#ffd5007d] bg-opacity-80 rounded-[20px] shadow-lg'
+  >
+    <div class='text-left space-y-4'>
+      <h1 class='text-4xl font-extrabold'>
+        Apply now while we are still doing everything for free
+      </h1>
+      <p class='text-lg text-gray-800'>
+        If you are accepted we'll onboard you within 24-48h
+      </p>
+    </div>
+
+    <div class='mt-10'>
+      <form class='w-full max-w-md space-y-6 bg-white p-6 rounded-lg shadow-lg'>
+        <div class='space-y-2'>
+          <label for='email' class='text-lg text-gray-700 font-medium'>
+            What's your email?
+          </label>
+          <input
+            id='email'
+            type='email'
+            placeholder='your@email.com'
+            class='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500'
+            required
+          />
+        </div>
+
+        <div>
+          <button
+            type='submit'
+            class='w-full bg-yellow-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500'
+          >
+            Next
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class='flex mt-8'>
+      <UserSlider users={users} />
+      <div class='ml-4'>
+        <p style='margin: 0; font-size: 16px;'>
+          <strong>{totalAccepted}/{totalApplications} accepted</strong>
+        </p>
+        <p style='margin: 0; font-size: 12px; color: #6c757d;'>
+          ✔ TrustPeople verified
+        </p>
+      </div>
+      <button
+        type='button'
+        class='ml-4 bg-[#001f4d] h-[40px] cursor-pointer ease-in duration-300 rounded-[12px] text-white flex justify-center items-center hover:bg-[#ffd500] hover:text-black'
+      >
+        Apply
+      </button>
+    </div>
+  </div>
+</div>
